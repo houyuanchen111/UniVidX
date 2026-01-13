@@ -1,0 +1,1 @@
+Put the weights of Wan2.1-T2V-14B here.

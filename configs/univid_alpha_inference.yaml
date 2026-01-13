@@ -1,0 +1,28 @@
+experiment_name: "univid_alpha_inference"   
+
+mode: "R2PFB"
+
+inference_rgb_path: "./assets/R2PFB/bl.mp4"
+
+inference_pha_path: null
+
+inference_fgr_path: null
+
+inference_bgr_path: null
+
+# For UniVid-Alpha, although the model handles different modalities unifiedly, the input text prompt requires a specific structure to explicitly distinguish between the Foreground and Background elements.
+# We recommend using the specific keyword "背景为" (meaning "the background is") as a separator：The text before the keyword describes the Foreground. The text after the keyword describes the Background.
+#Example: "一只大熊猫直立坐着，双手捧着一根竹子，满足地咀嚼着。背景为：四川山区茂密、多雾的竹林，天空飘着蒙蒙细雨。"
+prompt: "" 
+
+model:
+  name: 'UniVidAlpha' 
+  params:
+    model_paths: '["models/Wan-AI/Wan2.1-T2V-14B/models_t5_umt5-xxl-enc-bf16.pth","models/Wan-AI/Wan2.1-T2V-14B/Wan2.1_VAE.pth"]'
+    lora_base_model: "dit"
+    lora_target_modules: "self_attn.q,self_attn.k,self_attn.v,self_attn.o,ffn.0,ffn.2"
+    lora_rank: 32
+    lora_modalities: ["com","pha","fgr","bgr"] 
+    resume_from_checkpoint: "checkpoints/univid_alpha.safetensors"
+
+

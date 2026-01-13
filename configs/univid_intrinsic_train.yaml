@@ -1,0 +1,65 @@
+experiment_name: "univid_intrinsic_train"   
+
+trainer_name: "Trainer"  
+trainer_config:
+  num_epochs: 100
+  gradient_accumulation_steps: 1
+  logger_type: "tensorboard"
+ 
+
+
+dataset:
+  # place your dataset here
+
+
+val_dataset:
+  # place your val dataset here
+
+dataloader:
+  batch_size: 1
+  shuffle: True
+  drop_last: True  
+  num_workers: 4  
+  pin_memory: True
+  persistent_workers: True 
+
+val_dataloader:
+  batch_size: 1
+  shuffle: True
+
+model:
+  name: 'UniVidintrinsic' 
+  params:
+    model_paths: '["models/Wan-AI/Wan2.1-T2V-14B/models_t5_umt5-xxl-enc-bf16.pth","models/Wan-AI/Wan2.1-T2V-14B/Wan2.1_VAE.pth"]'
+    lora_base_model: "dit"
+    lora_target_modules: "self_attn.q,self_attn.k,self_attn.v,self_attn.o,ffn.0,ffn.2"
+    lora_rank: 32
+    lora_modalities: ["com","pha","fgr","bgr"] 
+
+
+optimizer:
+  name: "AdamW"
+  params:
+    lr: 1e-4 
+    weight_decay: 0.01
+
+
+scheduler:
+  name: "CosineAnnealingLR" 
+  params:
+    eta_min: 1e-6 
+
+callbacks:
+  - name: "ModelCheckpointCallback" 
+    params:
+      output_path: "outputs/univid_intrinsic_train" 
+      remove_prefix_in_ckpt: "pipe.dit."
+
+
+  - name: "TensorboardLoggingCallback"    
+    params:
+      logging_dir: "logs/univid_intrinsic_train"
+
+
+
+    

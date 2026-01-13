@@ -1,0 +1,25 @@
+experiment_name: "univid_intrinsic_inference"   
+
+mode: "t2RAIN"
+
+inference_rgb_path: null
+
+inference_albedo_path: null
+
+inference_irradiance_path: null
+
+inference_normal_path: null
+
+prompt: "一只小刺猬，穿着白色小围裙，头上戴着厨师帽，正站在小凳子上，双手举着一个小平底锅，锅里冒着热气，表情专注而自豪，位于一个现代化的迷你厨房中，不锈钢台面反射着明亮的光线，各种小厨具整齐地排列着, 镜头从右向左移动。"  
+
+model:
+  name: 'UniVidIntrinsic' 
+  params:
+    model_paths: '["models/Wan-AI/Wan2.1-T2V-14B/models_t5_umt5-xxl-enc-bf16.pth","models/Wan-AI/Wan2.1-T2V-14B/Wan2.1_VAE.pth"]'
+    lora_base_model: "dit"
+    lora_target_modules: "self_attn.q,self_attn.k,self_attn.v,self_attn.o,ffn.0,ffn.2"
+    lora_rank: 32
+    lora_modalities: ["rgb","albedo","irradiance","normal"] 
+    resume_from_checkpoint: "checkpoints/univid_intrinsic.safetensors"
+
+

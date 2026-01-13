@@ -1,0 +1,14 @@
+torch
+torchvision
+transformers
+imageio[ffmpeg]
+safetensors
+einops
+sentencepiece
+protobuf
+modelscope
+ftfy
+pandas
+accelerate
+peft
+datasets

@@ -1,0 +1,1 @@
+python scripts/inference_univid_alpha.py --config configs/univid_alpha_inference.yaml

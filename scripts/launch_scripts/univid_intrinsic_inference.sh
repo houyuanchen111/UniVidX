@@ -1,0 +1,1 @@
+python scripts/inference_univid_intrinsic.py --config configs/univid_intrinsic_inference.yaml
